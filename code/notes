@@ -1,0 +1,5 @@
+1. Run-time depends on how many variants exist/are simulated. To speed up, consider raising the MIN_CS threshold supplied to run_PE.
+2. Depending on proximity of SVs, reference copies etc., too much SLOP or BP_MARGIN can worsen results. The defaults are thus low, but feel free to change them and see if other values are better suited. In principle, higher values should not be needed.
+3. There is a trade-off between the run-time and resulting benefit of run_RD_SR. It can be sped up by reducing the refresh margin.
+4. For homozygous simulations, can raise MIN_CS to 25.
+5. SIG_BOUND can be set to 1 or lower (breakpoint regions will now be narrower) but this can be compensated by raising tolerance in one's comparison to see how results were affected.
