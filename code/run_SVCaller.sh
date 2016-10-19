@@ -5,43 +5,43 @@ do
 key="$1"
 
 case $key in
-    -b|--BamFile)
+    -b|--bamfile)
     BAM="$2"
     shift # past argument
     ;;
-    -bn|--BamFile_NS)
+    -bn|--bam_ns)
     BAM_NS="$2"
     shift # past argument
     ;;
-    -r|--ReadThresh)
+    -r|--read_thresh)
     READTHRESH="$2"
     shift # past argument
     ;;
-    -m|--MatchRatioThresh)
+    -m|--match_thresh)
     MATCHRATIO="$2"
     shift # past argument
     ;;
-    -n|--NMatchRatioThresh)
+    -n|--n_match_thresh)
     NMATCHRATIO="$2"
     shift # past argument
     ;;
-    -np|--NMatchPctThresh)
+    -np|--n-pct_thresh)
     NMATCH_PCT="$2"
     shift # past argument
     ;;
-    -ct|--CalcThresh)
+    -ct|--calc_thresh)
     CALC_THRESH="$2"
     shift # past argument
     ;;
-    -rd|--ReadDepthSignal)
+    -rd|--rd_signal)
     RDS="$2"
     shift # past argument
     ;;
-    -s|--SamtoolsPath)
+    -s|--sam_path)
     SAM="$2"
     shift # past argument
     ;; 
-    -sr|--MinClusterSize)
+    -sr|--split_margin)
     SR_MARGIN="$2"
     shift # past argument
     ;;

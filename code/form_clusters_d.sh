@@ -11,7 +11,7 @@ echo DoneSorting
 #Line below is for random insertions only
 #sort -n -k 1,1 ../results/text/All_Discords_I.txt > ../results/text/All_Discords_I_S.txt
 
-time (python FormClusters.py ../results/text/bam_stats.txt 4 5 15 1) # 50m
+time (python FormClusters.py ../results/text/bam_stats.txt 4 5 20 2) # 50m
 time (sort -T ../results/text/ -n -k 2,2 ../results/text/VariantMapInp_P.txt > ../results/text/VariantMapInp.txt) #1m
 time python WriteClusterMap.py 4 # 1m
 cp ../results/text/VariantMap.txt ../results/text/VariantMap_O.txt

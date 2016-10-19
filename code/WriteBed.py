@@ -62,8 +62,10 @@ if __name__ == "__main__":
 			    # two lines for insertion as in bedpe format
 			    [bp2_s, bp2_e] = min(int(line2_split[6]),int(line2_split[9])), min(int(line2_split[7]), int(line2_split[10]))
                             [bp3_s, bp3_e] = max(int(line2_split[6]),int(line2_split[9])), max(int(line2_split[7]), int(line2_split[10]))
-
-                            f16.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" %(line2_split[5], bp2_s, bp3_s, line2_split[2], line2_split[3], line2_split[4], line2_split[1]))
+			    
+			    #bp2_e = line2_split[7]
+			    #bp3_s = line2_split[9]			
+                            f16.write("%s\t%s\t%s\t%s\t%s\t%s\t%s\n" %(line2_split[5], bp2_e, bp3_s, line2_split[2], line2_split[3], line2_split[4], line2_split[1]))
 
                         # this is read from cluster file, so has 2 bps only
 			elif line2_split[1] == "Unknown":
