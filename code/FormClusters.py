@@ -112,8 +112,8 @@ def calculateMargin(List1):
 		l_orient = int(item.C_type[0])
 		r_orient = int(item.C_type[1])
 		
-		cl_margin_l = MEAN_D + SIG_BOUND*SIG_D - (item.lmax - item.lmin)
-		cl_margin_r = MEAN_D + SIG_BOUND*SIG_D  - (item.rmax - item.rmin)
+		cl_margin_l = MEAN_D + SIG_BOUND*SIG_D - 2*RDL - (item.lmax - item.lmin)
+		cl_margin_r = MEAN_D + SIG_BOUND*SIG_D  - 2*RDL - (item.rmax - item.rmin)
 
 		cl_margin = min(cl_margin_l, cl_margin_r)
 		cl_margin = int(math.ceil(cl_margin))

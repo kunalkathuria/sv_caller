@@ -25,7 +25,7 @@ case $key in
     NMATCHRATIO="$2"
     shift # past argument
     ;;
-    -np|--n-pct_thresh)
+    -np|--n_pct_thresh)
     NMATCH_PCT="$2"
     shift # past argument
     ;;
@@ -41,7 +41,7 @@ case $key in
     SAM="$2"
     shift # past argument
     ;; 
-    -sr|--split_margin)
+    -srr|--splitter_rate)
     SR_MARGIN="$2"
     shift # past argument
     ;;
@@ -57,8 +57,8 @@ case $key in
     RO="$2"
     shift # past argument
     ;;
-    -vm|--var_margin)
-    Variant_Margin="$2"
+    -vm|--var_rate)
+    VAR_RATE="$2"
     shift # past argument
     ;;
     -rr|--refresh_rate)
@@ -81,8 +81,16 @@ case $key in
     S_RISK="$2"
     shift # past argument
     ;;
-    -srr|--splitter_refresh)
-    SRR="$2"
+    -mc|--min_cluster)
+    MIN_CS="$2"
+    shift # past argument
+    ;;
+    -sm|--sig_mult)
+    SIG_MULT="$2"
+    shift # past argument
+    ;;
+    -sb|--sig_bound)
+    SIG_BOUND="$2"
     shift # past argument
     ;;		
     --default)
@@ -94,7 +102,6 @@ esac
 shift # past argument or value
 done
 
-./runCode.sh $READTHRESH $MATCHRATIO $NMATCHRATIO $MIN_CS $NMATCH_PCT $CALC_THRESH $RDS $BAM $BAM_NS $SAM
-
-# test case
-# ./runAll.sh
+./form_clusters.sh $BAM $BAM_NS $READ_THRESH $MATCHRATIO $NMATCHRATIO $CALC_THRESH $NMATCH_PCT $MIN_CS $SIG_MULT $BP_MARGIN $SIG_BOUND
+./run_PE.sh $MIN_CS $VAR_RATE $SLOP $REF_RATE $DTHRESH # can replace $MIN_CS here with another value and run these 2 steps with new threshold rather than rerun whole cluster formation sequence. In this case, simply comment out previous line and run sv_caller.
+./run_RD_SR.sh $S_PATH $S_RISK $SS $SR_MARGIN $RO $DTHRESH

@@ -38,5 +38,5 @@ time ($SAMTOOLS view -f 128 -b -o ../data/bams/aln2s.bam ../data/bams/discordant
 
 # run set cover
 ./form_clusters_d.sh
-./run_PE_d.sh 5
+./run_PE_d.sh 4
 ./run_RD_SR_d.sh

@@ -2,4 +2,6 @@
 2. Depending on proximity of SVs, reference copies etc., too much SLOP or BP_MARGIN can worsen results. The defaults are thus low, but feel free to change them and see if other values are better suited. In principle, higher values should not be needed.
 3. There is a trade-off between the run-time and resulting benefit of run_RD_SR. It can be sped up by reducing the refresh margin.
 4. For homozygous simulations, can raise MIN_CS to 25.
-5. SIG_BOUND can be set to 1 or lower (breakpoint regions will now be narrower) but this can be compensated by raising tolerance in one's comparison to see how results were affected.
+5. SIG_BOUND can be set to 1 or lower (breakpoint regions will now be narrower) but this can be compensated if too narrow by raising tolerance in one's comparison.
+6. Var_margin should be set higher for low-coverage data. It should be set equal to the max expected difference between the reasonable maximum cluster length (usually mean + 3*sigma if Poisson etc.) breakpoint region length. 
+7. Min cluster size (MC) can be varied (raised from default of 5) to see if more variants are consequently claimed in the respective bedpe files. One can follow the approach of using different min CS's and picking the bedpe with max entries for each category as the final one (inversions.bedpe, deletions.bedpe etc.)
