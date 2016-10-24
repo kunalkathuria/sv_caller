@@ -3,9 +3,21 @@ Structural Variant Caller
 
 ### SUMMARY
 
+Tool that accepts BAM file of target as input and outputs 4 bedpe files containing deletions, insertions, inversions and tandem duplications repectively in standard bedpe format. The insertions are tagged as INS (copy-paste), INS_C (cut-paste), INS_I (inverted copy-paste), INS_C_I, INS_C_P (paste and cut locations/breakpoints are confirmed on same chromosome-- bp1 is indeed pasted location), INS_C_I_P. An Unknown.bedpe is also output containing unidentified variants.
+
+sv_caller classifies discordant clusters into variants using PEM and then uses a uniqueness-based set-cover approach to pick those variants that are likely to be true. In between these 2 stages, this tool also uses split reads (to enhance breakpoint locations and add weight to existing variants) and read-depth signal (if desired, to disambiguate among purported variants).
+
 ### REQUIREMENTS
 
+Unix-based OS with bash
+python with pysam and other commonly used libraries
+samtools
+git
+Best to have all executables (e.g. "samtools") on user path 
+
 ### INSTALLATION
+
+Download from GitHub and follow usage instructions below. 
 
 ### USAGE
 
