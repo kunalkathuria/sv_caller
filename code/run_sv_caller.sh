@@ -22,7 +22,7 @@ MIN_CS=4
 BAM=
 BAM_NS=
 SAM=
-S_PATH=
+S_PATH=samtools
 
 usage()
 {
@@ -31,8 +31,8 @@ usage: $0 [options]
 
 Options:
     -h 				(this menu)
-    -a|--bamfile 		(REQUIRED: position-sorted bam file)
-    -b|--bam_ns 		(REQUIRED: name-sorted bam file)
+    -a|--bamfile 		(*REQUIRED: position-sorted bam file)
+    -b|--bam_ns 		(*REQUIRED: name-sorted bam file)
     -c|--read_thresh 		(max number of discordant read mappings a single PE fragment mate can have for it not to be ignored in uniqeness-based set cover, default = 20)
     -d|--match_thresh 		(min threshold of ratio of a given secondary alignment's score with AS of primary alignment needed for this secondary alignment to be considered/used in set cover, def = 1)
     -e|--n_match_thresh 	(same as above for number of base pair matches in alignment, instead of AS, def = .95)
@@ -145,10 +145,10 @@ then
      exit 1
 fi
 
-time ($SAM view -F 3586 -b -o ../data/bams/discordants.bam $BAM_NS) #34m
-time ($SAM view -f 64 -b -o ../data/bams/aln1s.bam ../data/bams/discordants.bam) #4m
-time ($SAM view -f 128 -b -o ../data/bams/aln2s.bam ../data/bams/discordants.bam) # 4m
+#time ($SAM view -F 3586 -b -o ../data/bams/discordants.bam $BAM_NS) #34m
+#time ($SAM view -f 64 -b -o ../data/bams/aln1s.bam ../data/bams/discordants.bam) #4m
+#time ($SAM view -f 128 -b -o ../data/bams/aln2s.bam ../data/bams/discordants.bam) # 4m
 
-./form_clusters.sh $BAM $BAM_NS $READTHRESH $MATCHRATIO $NMATCHRATIO $CALC_THRESH $NMATCH_PCT $MIN_CS $SIG_MULT $BP_MARGIN $SIG_BOUND
+./form_clusters.sh $BAM_NS $BAM $READTHRESH $MATCHRATIO $NMATCHRATIO $CALC_THRESH $NMATCH_PCT $MIN_CS $SIG_MULT $BP_MARGIN $SIG_BOUND
 ./run_PE.sh $MIN_CS $VAR_RATE $SLOP $REF_RATE $DTHRESH # can replace $MIN_CS here with another value and run these 2 steps with new threshold rather than rerun whole cluster formation sequence. In this case, simply comment out previous line and run sv_caller.
 ./run_RD_SR.sh $S_PATH $S_RISK $SS $SR_MARGIN $RO $DTHRESH $RDS
