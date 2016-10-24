@@ -25,9 +25,15 @@ Example call (from sv_caller/code):
 
 ./run_SVCaller.sh [options]
 
+A good check to see if the tool is working properly is to give it as input the test BAM files in the sv_caller/data/bams/test folder and check if the resulting bedpe files found in the sv_caller/results/text folder match those contained in the sv_caller/results/test folder. So, first run the code with all default parameter values thus from the sv_caller/code folder:
+
+./run_SVCaller.sh -a ../data/bams/test/test_bam.bam -b ../data/bams/test/test_bam.ns.bam -i "sam_path" -r ../data/bams/test/test_splitters.ns.bam
+
+Then, make sure that the 4 files in sv_caller/results/test match the respective ones just created in sv_caller/results/text (deletions.bedpe etc.). If this is not the case, please recheck all the paths and checkout the master branch from GitHub again if necessary.
+
 Options (also listed in command line call without arguments or with -h):
 
--h                          (this menu)
+    -h                          (this menu)
     -a|--bamfile                (*REQUIRED: position-sorted bam file)
     -b|--bam_ns                 (*REQUIRED: name-sorted bam file)
     -c|--read_thresh            (max number of discordant read mappings a single PE fragment mate can have for it not to be ignored in uniqeness-based set cover, default = 20)
