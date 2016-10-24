@@ -1,6 +1,14 @@
 # sv_caller
 Structural Variant Caller
 
+### SUMMARY
+
+### REQUIREMENTS
+
+### INSTALLATION
+
+### USAGE
+
 Example call:
 
 ./run_SVCaller.sh [options]
@@ -13,7 +21,7 @@ Results:
 
 These are stored in the sv_caller/results/text directory. These make use of PE, SR alignments and RD signal. Intermediate bedpe files using only PE mappings are stored in the above directory as well in a folder titled 'pe_results'.
 
-Notes:
+### NOTES
 
 1. Run-time depends on how many variants exist/are simulated. To speed up, consider raising the MIN_CS threshold supplied to run_PE.
 2. Depending on proximity of SVs, reference copies etc., too much SLOP or BP_MARGIN can worsen results. The defaults are thus low, but feel free to change them and see if other values are better suited. In principle, higher values should not be needed.
