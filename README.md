@@ -9,11 +9,7 @@ sv_caller classifies discordant clusters into variants using PEM and then uses a
 
 ### REQUIREMENTS
 
-Unix-based OS with bash
-python with pysam and other commonly used libraries
-samtools
-git
-Best to have all executables (e.g. "samtools") on user path 
+Unix-based OS with bash, python with pysam and other commonly used libraries, samtools, git. Best to have all executables (e.g. "samtools") on user path. 
 
 ### INSTALLATION
 
