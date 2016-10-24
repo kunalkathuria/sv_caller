@@ -145,9 +145,9 @@ then
      exit 1
 fi
 
-time ($SAMTOOLS view -F 3586 -b -o ../data/bams/discordants.bam $REMOTE_FILE) #34m
-time ($SAMTOOLS view -f 64 -b -o ../data/bams/aln1s.bam ../data/bams/discordants.bam) #4m
-time ($SAMTOOLS view -f 128 -b -o ../data/bams/aln2s.bam ../data/bams/discordants.bam) # 4m
+time ($SAM view -F 3586 -b -o ../data/bams/discordants.bam $BAM_NS) #34m
+time ($SAM view -f 64 -b -o ../data/bams/aln1s.bam ../data/bams/discordants.bam) #4m
+time ($SAM view -f 128 -b -o ../data/bams/aln2s.bam ../data/bams/discordants.bam) # 4m
 
 ./form_clusters.sh $BAM $BAM_NS $READ_THRESH $MATCHRATIO $NMATCHRATIO $CALC_THRESH $NMATCH_PCT $MIN_CS $SIG_MULT $BP_MARGIN $SIG_BOUND
 ./run_PE.sh $MIN_CS $VAR_RATE $SLOP $REF_RATE $DTHRESH # can replace $MIN_CS here with another value and run these 2 steps with new threshold rather than rerun whole cluster formation sequence. In this case, simply comment out previous line and run sv_caller.
