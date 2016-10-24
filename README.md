@@ -29,9 +29,11 @@ Then, make sure that the 4 files in sv_caller/results/test match the respective 
 
 The input BAM file is generated with BWA using the following options:
 
+```bash
 $BWA mem -R '@RG\tID:foo\tSM:bar' -a -Y -t 1 $REFERENCE $READ1 $READ2 \
 | $SAMTOOLS view -S -b - \
 > ../data/bams/test/test_target_pe.bam
+```
 
 sv_caller Options (also listed in command line call without arguments or with -h):
 
@@ -59,7 +61,7 @@ sv_caller Options (also listed in command line call without arguments or with -h
     -v|--sig_bound              (in forming breakpoint region, the value of mean_insert_length + sig_bound*sig_insert_length - mean_RDL - (outer dist b/w min and max location of cluster read) is added to the "exact" breakpoint given by end-point of read in direction of orientation. This is usually 3 for Poisson etc., def = 2)
     -w|--sig_mult               (in forming clusters, a read's alignment location needs to fall within mean_IL + sig_mult*sigma_IL - 2*RDL of given cluster to be part of it as a necessary condition, def = 5)
 
-#### RESULTS
+### RESULTS
 
 4 bedpe files are created in the standard 6-column format (chr1, start, stop, chr2, start, stop) except for insertions.bedpe which is in the standard (Chr_paste, start, stop, Chr_cut/Chr_copy, start, end) insertion format. The kind of insertion (cut vs copy vs inverted cut etc.) is identified in the last column.
 
