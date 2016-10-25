@@ -7,7 +7,7 @@ sort -k6,6 ../results/text/inDels.txt > ../results/text/inDels_S.txt
 
 if [ $7 -eq 1 ]
 then
-	python add_RD.py $5 ../results/text/RDSegments.txt
+	python add_RD.py $5 $8 ../results/text/RDSegments.txt
 	cp ../results/text/VariantMap_RD.txt ../results/text/VariantMap.txt
 	cp ../results/text/All_Variants_RD.txt ../results/text/All_Variants.txt
 fi
