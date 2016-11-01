@@ -23,7 +23,7 @@ Example call (from sv_caller/code):
 
 A good check to see if the tool is working properly is to give it as input the test BAM files in the sv_caller/data/bams/test folder and check if the resulting bedpe files found in the sv_caller/results/text folder match those contained in the sv_caller/results/test folder. So, first run the code with all default parameter values thus from the sv_caller/code folder:
 
-./run_sv_caller.sh -a ../data/bams/test/test_target_pe.bam -b ../data/bams/test/test_target_pe.ns.bam -i "sam_path" -r ../data/bams/test/test_splitters.ns.bam
+./run_sv_caller.sh -a ../data/bams/test/test_target_pe.bam -b ../data/bams/test/test_target_pe.ns.bam -r ../data/bams/test/test_target_splitters.ns.bam
 
 Then, make sure that the 4 files in sv_caller/results/test match the respective ones just created in sv_caller/results/text (deletions.bedpe etc.). If this is not the case, please recheck all the paths and checkout the master branch from GitHub again if necessary.
 
@@ -35,6 +35,9 @@ $BWA mem -R '@RG\tID:foo\tSM:bar' -a -Y -t 1 $REFERENCE $READ1 $READ2 \
 > ../data/bams/test/test_target_pe.bam
 ```
 
+A name-sorted version of this file and a name-sorted split-reads BAM file should also be available for required input. 
+If using CNV (read-depth) signal as input, set the RDS flag to 1 and provide a space or tab-delimited file in the format (chr, start, stop, CN) as input (-x). For this to be most effective, it is best to omit MQ-0 regions (not individual mappings) entirely since RD cannot disambiguate them. It is also desirable to have CN accurate to within .3 but not critical as long as there is a deletion/amplification indicated in that region.
+
 sv_caller Options (also listed in command line call without arguments or with -h):
 
     -h                          (this menu)
@@ -45,11 +48,11 @@ sv_caller Options (also listed in command line call without arguments or with -h
     -e|--n_match_thresh         (same as above for number of base pair matches in alignment, instead of AS, def = .95)
     -f|--n_pct_thresh           (min ratio of matching bases in a given alignment to mean read length required for read to be used in analysis, default =  0)
     -g|--calc_thresh            (max entries of bamfile used to ascertain stats like coverage, mean insert length etc., def = 500,000)
-    -i|--sam_path               (*REQUIRED: complete path to samtools command, including /samtools)
+    -i|--sam_path               (complete path to samtools command, including /samtools)
     -j|--bp_margin              (in deciding breakpoint start, stop this is the minimum margin added to either side of breakpoint to account for sequencing errors etc. unless the calculated margin around breakpoints is anyway larger, def = 20 --> 10 added to either side)
     -k|--splitter_rate          (to save time, only 1 split read mapping within these many bases of others is used to improve breakpoint precision, since only 1 is really required if coming from same junction/breakpoint, def = 250)
     -l|--slop                   (in SV determination using PE mappings, this extra slop is used in calculating overlap as necessary for whatever reason, not needed ordinarily, def = 0)
-    -m|--rd_signal              (whether or not to use read depth signal, e.g. if CN file is not available set this to 0, def = 1)                                                                                                                    
+    -m|--rd_signal              (SET to 1 if using -x; whether or not to use read depth signal, e.g. if CN file is not available set this to 0, def = 0)                                                               
     -n|--rec_overlap            (min reciprocal overlap needed with CN region to boost/give more weight to intermediate PE-claimed SV)
     -o|--var_rate               (2 clusters are compared for overlap within this much max distance between breakpoint start locations, while consolidating clusters into variants; the lower this margin is, the faster the code will be; value should be around high-percentile of breakpoint region width and so depends upon coverage, def = 250)
     -p|--refresh_rate           (too specific, broadly -- controls how often variant list cleaned up. See ClassifyVariants.py, def = 5)
@@ -60,6 +63,8 @@ sv_caller Options (also listed in command line call without arguments or with -h
     -u|--min_cluster            (the minimum number of reads supporting a cluster required for it to be considered in the analysis, def = 5)
     -v|--sig_bound              (in forming breakpoint region, the value of mean_insert_length + sig_bound*sig_insert_length - mean_RDL - (outer dist b/w min and max location of cluster read) is added to the "exact" breakpoint given by end-point of read in direction of orientation. This is usually 3 for Poisson etc., def = 2)
     -w|--sig_mult               (in forming clusters, a read's alignment location needs to fall within mean_IL + sig_mult*sigma_IL - 2*RDL of given cluster to be part of it as a necessary condition, def = 5)
+    -x				(SET -m to 1 if using this; path to file containing CNVs)
+    -y                          (binary switch; set to 0 if wish to see only those variants that are supported uniquely by fragments, def = 1)
 
 ### RESULTS
 

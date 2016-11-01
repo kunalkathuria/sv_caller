@@ -28,15 +28,16 @@ NSIMS=1
 
 # bwa alignment
 #$BWA index $REFERENCE
-$BWA mem -R '@RG\tID:foo\tSM:bar' -a -Y -t 32 $REFERENCE $READ1 $READ2 \
-| $SAMTOOLS view -S -b - \
-> ../data/bams/test/test_target_pe.bam
+#$BWA mem -R '@RG\tID:foo\tSM:bar' -a -Y -t 32 $REFERENCE $READ1 $READ2 \
+#| $SAMTOOLS view -S -b - \
+#> ../data/bams/test/test_target_pe.bam
 
-$SAMTOOLS sort -@ 32 -n ../data/bams/test/test_target_pe.bam ../data/bams/test/test_target_pe.ns
+#$SAMTOOLS index ../data/bams/test/test_target_pe.bam
+#$SAMTOOLS sort -@ 32 -n ../data/bams/test/test_target_pe.bam ../data/bams/test/test_target_pe.ns
 
-/m/cphg-RLstore/cphg-RLstore/kk7t/sv_caller/other_tools/lumpy/code/lumpy-sv-0.2.11/run_lumpy
+/m/cphg-RLstore/cphg-RLstore/kk7t/sv_caller/other_tools/lumpy/code/lumpy-sv-0.2.11/run_lumpy.sh
 
-./run_sv_caller -a ../data/bams/test/test_target_pe.bam -b ../data/bams/test/test_target_pe.ns.bam -i $SAMTOOLS -r ../data/bams/test/test_target_splitters.ns.bam
+./run_sv_caller.sh -a ../data/bams/test/test_target_pe.bam -b ../data/bams/test/test_target_pe.ns.bam -i $SAMTOOLS -r ../data/bams/test/test_target_splitters.ns.bam
 #time ($SAMTOOLS view -F 3586 -b -o ../data/bams/discordants.bam $REMOTE_FILE) #34m
 #time ($SAMTOOLS view -f 64 -b -o ../data/bams/aln1s.bam ../data/bams/discordants.bam) #4m
 #time ($SAMTOOLS view -f 128 -b -o ../data/bams/aln2s.bam ../data/bams/discordants.bam) # 4m

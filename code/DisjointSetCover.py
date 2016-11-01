@@ -11,7 +11,6 @@ FILE = "../results/text/VariantMap.txt"
 nSets = 5
 nFragments = 5
 maxSetEntries = 4
-disjThresh = int(sys.argv[1])
 ignoreRD = 1
 RD_VAR_NUM = 3000000
 
@@ -25,8 +24,8 @@ def DisjointAlg(fragmentList, nSetsR):
     listSize = []
     disjointness = [0]*nSetsR
     varNum = []
-    #results = [0]*(max(fragmentList) + 1)
-
+    varSupport = []
+	
     # fragment numbering starts with 1
 
     #claimed = [0]*(1+max(fragmentList)) # change to n unique frags if saves time
@@ -50,10 +49,13 @@ def DisjointAlg(fragmentList, nSetsR):
 
 	            disjointness[counter]+=1
 
+	varSupport.append(len(currentSet))
 	counter+=1
 
     for g,item in enumerate(disjointness):
-        if item >= disjThresh and varNum[g] < RD_VAR_NUM:
+
+	# if all fragments supporting variant are uniquely supporting it
+        if varSupport[g] == disjointness[g] and varNum[g] < RD_VAR_NUM:
            fp3.write("%s\n" %varNum[g]) 
 	   N_potSVs+=1
 	if varNum[g] >= RD_VAR_NUM and not ignoreRD:

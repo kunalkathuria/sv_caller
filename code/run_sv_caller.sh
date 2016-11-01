@@ -19,10 +19,12 @@ S_RISK=0
 SIG_MULT=5
 SIG_BOUND=2
 MIN_CS=4
+USC=1
+SAM=samtools
 BAM=
 BAM_NS=
-SAM=samtools
 S_PATH=
+RD_FILE="RDSegments.txt"
 
 usage()
 {
@@ -54,10 +56,11 @@ Options (please use short options for now):
     -v|--sig_bound		(in forming breakpoint region, the value of mean_insert_length + sig_bound*sig_insert_length - mean_RDL - (outer dist b/w min and max location of cluster read) is added to the "exact" breakpoint given by end-point of read in direction of orientation. This is usually 3 for Poisson etc., def = 2)
     -w|--sig_mult		(in forming clusters, a read's alignment location needs to fall within mean_IL + sig_mult*sigma_IL - 2*RDL of given cluster to be part of it as a necessary condition, def = 5)
     -x				(SET -m to 1 if using this; path to file containing CNVs)
+    -y				(binary switch; set to 0 if wish to see only those variants that are supported uniquely by fragments, def = 1)	
 EOF
 }
 
-while getopts “ha:b:c:d:e:f:g:i:j:k:l:m:n:o:p:q:r:s:t:u:v:w:x” OPTION
+while getopts “ha:b:c:d:e:f:g:i:j:k:l:m:n:o:p:q:r:s:t:u:v:w:x:y:” OPTION
 do
 
      case $OPTION in
@@ -133,6 +136,9 @@ do
 	    ;;
 	    x)
 	    RD_FILE="$OPTARG"
+	    ;;
+	    y)
+	    USC="$OPTARG"
 	    ;;		
 	    ?)
 	    echo "Option not recognized."
@@ -152,6 +158,6 @@ time ($SAM view -F 3586 -b -o ../data/bams/discordants.bam $BAM_NS) #34m
 time ($SAM view -f 64 -b -o ../data/bams/aln1s.bam ../data/bams/discordants.bam) #4m
 time ($SAM view -f 128 -b -o ../data/bams/aln2s.bam ../data/bams/discordants.bam) # 4m
 
-./form_clusters.sh $BAM_NS $BAM $READTHRESH $MATCHRATIO $NMATCHRATIO $CALC_THRESH $NMATCH_PCT $MIN_CS $SIG_MULT $BP_MARGIN $SIG_BOUND
-./run_PE.sh $MIN_CS $VAR_RATE $SLOP $REF_RATE $DTHRESH # can replace $MIN_CS here with another value and run these 2 steps with new threshold rather than rerun whole cluster formation sequence. In this case, simply comment out previous line and run sv_caller.
-./run_RD_SR.sh $S_PATH $S_RISK $SS $SR_MARGIN $RO $DTHRESH $RDS $RD_FILE
+./form_clusters.sh $BAM_NS $BAM $READTHRESH $MATCHRATIO $NMATCHRATIO $CALC_THRESH $NMATCH_PCT $MIN_CS $SIG_MULT $BP_MARGIN $SIG_BOUND $SAM
+./run_PE.sh $MIN_CS $VAR_RATE $SLOP $REF_RATE $DTHRESH $USC $BAM # can replace $MIN_CS here with another value and run these 2 steps with new threshold rather than rerun whole cluster formation sequence. In this case, simply comment out previous line and run sv_caller.
+./run_RD_SR.sh $S_PATH $S_RISK $SS $SR_MARGIN $RO $DTHRESH $RDS $RD_FILE $USC

@@ -12,7 +12,13 @@ then
 	cp ../results/text/All_Variants_RD.txt ../results/text/All_Variants.txt
 fi
 
-python SetCover.py $6
+if [ $9 -eq 1 ]
+then
+	python SetCover.py $6
+else
+	python DisjointSetCover.py
+fi
+
 python WriteBed.py
 cp ../results/text/VariantMap_O.txt ../results/text/VariantMap.txt
 cp ../results/text/All_Variants_O.txt ../results/text/All_Variants.txt
